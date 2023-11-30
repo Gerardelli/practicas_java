@@ -38,7 +38,7 @@ public class Persona {
         this.telefono = telefono;
     }
 
-    public String toString2() {
+    public String toStringPersona() {
         return "Persona{" +
                 "nombre='" + nombre + '\'' +
                 ", edad=" + edad +
