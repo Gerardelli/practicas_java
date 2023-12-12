@@ -2,8 +2,13 @@ package DAO;
 
 import conexionDB.Conexion;
 import modelos.Empleado;
+//Clases para guardar los datos en una consulta y guardar cambios en la base de datos
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+//Clases para obtener los datos de una tabla de una base de datos
+import java.sql.ResultSet;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class EmpleadoDAO {
@@ -32,5 +37,39 @@ public class EmpleadoDAO {
             return false;
         }
     }
+
+    //El metodo mostarEmpleados debe regresar una lista de empleados con todos sus datos
+    public List<Empleado>  mostrarEmpleados(){
+
+        String consulta = "SELECT * FROM EMPLEADO";
+
+        try {
+            PreparedStatement query = conexion.Conectar().prepareCall(consulta);
+            ResultSet resultSet = query.executeQuery();
+
+            List<Empleado> empleadoList = new LinkedList<>();
+            Empleado empleado;
+
+            while (resultSet.next()){
+                empleado = new Empleado(resultSet.getInt("id_empleado"));
+                empleado.setNombre_empleado(resultSet.getString("nombre_empleado"));
+                empleado.setApellidos(resultSet.getString("apellidos"));
+                empleado.setTelefono(resultSet.getString("telefono"));
+                empleado.setPuesto(resultSet.getString("puesto"));
+                empleado.setSueldo(resultSet.getFloat("sueldo"));
+                empleado.setTipo_empleado(resultSet.getString("tipo_empleado"));
+
+                empleadoList.add(empleado);
+            }
+
+            return empleadoList;
+
+        } catch (SQLException e) {
+            return null;
+        }
+
+    }
+
+
 
 }

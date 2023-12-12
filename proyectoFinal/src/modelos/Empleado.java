@@ -23,6 +23,10 @@ public class Empleado {
 
     }
 
+    public Empleado(int idEmpleado) {
+        this.id_empleado = idEmpleado;
+    }
+
     public int getId_empleado() {
         return id_empleado;
     }
